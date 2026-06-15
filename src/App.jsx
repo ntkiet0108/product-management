@@ -1,76 +1,58 @@
 import { useState } from 'react'
-import { Form } from "./form.jsx";
+import { Seller } from "./Page/seller.jsx";
+import { Buyer } from "./Page/buyer.jsx";
+import { Admin } from "./Page/admin.jsx";
+import { Shipper } from "./Page/shipper.jsx";
 
-const App = () => {
-  const [editId, setEditId] = useState(null);
-  const [list, setList] = useState([
-    {
-      id: 1,
-      name: "Bút bi",
-      price: 5000
-    },
-    {
-      id: 2,
-      name: "Vở",
-      price: 10000
-    }
-  ]);
+export const App = () => {
 
-  const del = i => {
-    const remove = list.filter((value, index) => i != index);
-    setList(remove);
-  }
+    const [role, setRole] = useState("");
+    const [list, setList] = useState([
+        {
+            id: 1,
+            name: "Bút bi",
+            price: 5000
+        },
+        {
+            id: 2,
+            name: "Vở",
+            price: 10000
+        }
+    ]);
+    const [order, setOrder] = useState([]);
 
-  return (
-      <>
-        <Form
-            key={editId}
-            initData={!editId ? null : list.find((e) => e.id === editId)}
-            action={editId == null ? {
-              label: "Thêm",
-              onClick: ({name, price}) => {
-                setList([...list,{
-                  id: list.length+1,
-                  name: name,
-                  price: Number(price)
-                }]);
-              },
-            } : {
-              label: "Cập nhật",
-              onClick: ({name, price}) => {
-                const updatedList = list.map((value) => {
-                  if(value.id != editId) return value;
-                  return {
-                    ...value,
-                    name: name,
-                    price: Number(price)
-                  }
-                })
-                setList(updatedList);
-                setEditId(null);
-              },
-            }}
-        />
-        <hr />
-        <ul>
-          {list.map((value, index) => (
-              <li key={value.id}>
-                {value.name + " " + value.price + " VND "}
-                <div>
-                  <button onClick={() => del(index)}>Xóa</button>
-                  <button onClick={() => setEditId(value.id)}>Sửa</button>
-                </div>
-              </li>
-          ))}
-        </ul>
-        <hr />
-        <div>
-          {"Tổng tiền: "}
-          {list.reduce((total, value) => total + value.price, 0)}
-          {" VND"}
-        </div>
-      </>
-  )
+    return (
+        <>
+            <button onClick={() => setRole("seller")}>Chủ shop</button>
+            <button onClick={() => setRole("buyer")}>Người mua</button>
+            <button onClick={() => setRole("admin")}>Admin</button>
+            <button onClick={() => setRole("shipper")}>Shipper</button>
+
+            {role === "seller" && (
+                <Seller
+                    list={list}
+                    setList={setList}
+                />
+            )}
+
+            {role === "buyer" && (
+                <Buyer
+                    list={list}
+                    order={order}
+                    setOrder={setOrder}
+                />
+            )}
+
+            {role === "admin" && (<Admin/>)}
+
+            {role === "shipper" && (
+                <Shipper
+                    order={order}
+                    setOrder={setOrder}
+                />
+            )}
+        </>
+    )
 }
 
 export default App

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export const Form = ({initData, action}) => {
+
     const [name, setName]   = useState(initData?.name);
     const [price, setPrice] = useState(initData?.price);
 
@@ -14,6 +15,7 @@ export const Form = ({initData, action}) => {
                     onChange={e => setName(e.target.value)}
                 />
             </div>
+
             <div>
                 <label >Giá </label>
                 <input
@@ -22,6 +24,7 @@ export const Form = ({initData, action}) => {
                     onChange={e => setPrice(e.target.value)}
                 />
             </div>
+
             <button
                 disabled={!name || !price || price <= 0}
                 onClick={() => {
@@ -31,5 +34,5 @@ export const Form = ({initData, action}) => {
                 }}
             >{action.label}</button>
         </>
-    );
-};
+    )
+}
