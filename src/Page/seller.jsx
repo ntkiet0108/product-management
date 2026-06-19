@@ -4,12 +4,6 @@ import { Form } from "../form.jsx";
 export const Seller = ({list, setList}) => {
 
     const [editId, setEditId] = useState(null);
-    const add = value => {
-        setList([...list, {
-            id: list.length + 1,
-            ...value,
-        }]);
-    }
 
     const del = i => {
         const remove = list.filter((value) => i !== value.id);
