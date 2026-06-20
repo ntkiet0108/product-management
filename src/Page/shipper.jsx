@@ -1,3 +1,5 @@
+import { Address } from "../address.jsx";
+
 export const Shipper = ({order, setOrder}) => {
 
     const update = (id, status) => {
@@ -8,6 +10,14 @@ export const Shipper = ({order, setOrder}) => {
         setOrder(newStatus);
     }
 
+    const displayAddress = (address) => {
+        const province = Address.provinces.find(province => province.id === address.provinceId);
+        const district = Address.districts.find(district => district.id === address.districtId);
+        const street = Address.streets.find(street => street.id === address.streetId);
+
+        return street.name + ", " + district.name + ", " + province.name;
+    }
+
     return (
         <>
             <h2>Shipper</h2>
@@ -16,7 +26,7 @@ export const Shipper = ({order, setOrder}) => {
                     <li key={value.id}>
                         {"Sản phẩm: " + value.name}
                         <br/>
-                        {"Địa chỉ: " + value.address}
+                        {"Địa chỉ: " + displayAddress(value.address)}
                         <br/>
                         {"Trạng thái: " + value.status}
                         <br/>

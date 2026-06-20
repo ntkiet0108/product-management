@@ -3,9 +3,9 @@ import {Address} from "../address.jsx";
 
 export const Buyer = ({list, order, setOrder}) => {
 
-    const [provinceId, setProvinceId] = useState("");
-    const [districtId, setDistrictId] = useState("");
-    const [streetId, setStreetId] = useState("");
+    const [provinceId, setProvinceId] = useState(null);
+    const [districtId, setDistrictId] = useState(null);
+    const [streetId, setStreetId] = useState(null);
 
     const districtByProvince = Address.districts.filter(districts => districts.province_id === provinceId);
     const streetByDistrict = Address.streets.filter(streets => streets.district_id === districtId);
@@ -16,16 +16,14 @@ export const Buyer = ({list, order, setOrder}) => {
             return;
         }
 
-        const province = Address.provinces.find(province => province.id === provinceId);
-        const district = Address.districts.find(district => district.id === districtId);
-        const street = Address.streets.find(street => street.id === streetId);
-
-        const address = street.name + ", " + district.name + ", " + province.name;
-
         setOrder([...order, {
             id: order.length + 1,
             name: value.name,
-            address,
+            address: {
+                provinceId: provinceId,
+                districtId: districtId,
+                streetId: streetId
+            },
             status: "pending"
         }]);
     }
@@ -40,8 +38,8 @@ export const Buyer = ({list, order, setOrder}) => {
                     value={provinceId}
                     onChange={e => {
                         setProvinceId(e.target.value);
-                        setDistrictId("");
-                        setStreetId("");
+                        setDistrictId(null);
+                        setStreetId(null);
                     }}
                 >
                     <option value=""></option>
@@ -61,7 +59,7 @@ export const Buyer = ({list, order, setOrder}) => {
                     disabled={!provinceId}
                     onChange={e => {
                         setDistrictId(e.target.value);
-                        setStreetId("");
+                        setStreetId(null);
                     }}
                 >
                     <option value=""></option>
