@@ -15,7 +15,7 @@ export const Shipper = ({order, setOrder}) => {
         const district = Address.districts.find(district => district.id === address.districtId);
         const street = Address.streets.find(street => street.id === address.streetId);
 
-        return street.name + ", " + district.name + ", " + province.name;
+        return address.detailAddress + ", " + street.name + ", " + district.name + ", " + province.name;
     }
 
     return (
@@ -25,6 +25,10 @@ export const Shipper = ({order, setOrder}) => {
                 {order.map(value => (
                     <li key={value.id}>
                         {"Sản phẩm: " + value.name}
+                        <br/>
+                        {"Tên người nhận: " + value.buyerName}
+                        <br/>
+                        {"Số điện thoại: " + value.phone}
                         <br/>
                         {"Địa chỉ: " + displayAddress(value.address)}
                         <br/>
