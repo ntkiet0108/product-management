@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const Form = ({initData, action}) => {
+export const SellerForm = ({initData, action}) => {
 
     const [name, setName]   = useState(initData?.name);
     const [price, setPrice] = useState(initData?.price);

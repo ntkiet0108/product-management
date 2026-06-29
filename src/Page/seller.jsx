@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form } from "../form.jsx";
+import { SellerForm } from "../seller-form.jsx";
 
 export const Seller = ({list, setList}) => {
 
@@ -13,7 +13,7 @@ export const Seller = ({list, setList}) => {
     return (
         <>
             <h2>Chủ shop</h2>
-            <Form
+            <SellerForm
                 key={editId}
                 initData={!editId ? null : list.find((e) => e.id === editId)}
                 action={editId == null ? {
