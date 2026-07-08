@@ -1,4 +1,4 @@
-import { Address } from "../address.jsx";
+import { Address } from "../Data/address.jsx";
 
 export const Shipper = ({order, setOrder}) => {
 

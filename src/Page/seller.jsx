@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SellerForm } from "../seller-form.jsx";
+import { SellerForm } from "../Form/seller-form.jsx";
 
 export const Seller = ({list, setList}) => {
 
