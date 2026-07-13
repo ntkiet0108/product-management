@@ -25,7 +25,7 @@ export const Buyer = ({list, order, setOrder}) => {
                     <li key={value.id}>
                         {value.name + " " + value.price + " VND "}
                         <button
-                            disabled={form.checked}
+                            disabled={!form.checked}
                             onClick={() => buy(value)}
                         >Mua</button>
                     </li>

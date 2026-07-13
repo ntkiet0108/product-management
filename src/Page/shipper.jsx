@@ -1,4 +1,4 @@
-import { Address } from "../Data/address.jsx";
+import { AddressData } from "../Field/Address/address-data.jsx";
 
 export const Shipper = ({order, setOrder}) => {
 
@@ -11,9 +11,9 @@ export const Shipper = ({order, setOrder}) => {
     }
 
     const displayAddress = (address) => {
-        const province = Address.provinces.find(province => province.id === address.provinceId);
-        const district = Address.districts.find(district => district.id === address.districtId);
-        const street = Address.streets.find(street => street.id === address.streetId);
+        const province = AddressData.provinces.find(province => province.id === address.provinceId);
+        const district = AddressData.districts.find(district => district.id === address.districtId);
+        const street = AddressData.streets.find(street => street.id === address.streetId);
 
         return address.detailAddress + ", " + street.name + ", " + district.name + ", " + province.name;
     }

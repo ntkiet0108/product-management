@@ -1,4 +1,4 @@
-export const Address = {
+export const AddressData = {
     provinces: [
         { name: "Hà Nội", id: "ha_noi" },
         { name: "Đà Nẵng", id: "da_nang" },

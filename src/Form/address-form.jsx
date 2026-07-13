@@ -1,4 +1,4 @@
-import {useAddress} from "../Field/address.jsx";
+import {useAddress} from "../Field/Address/address.jsx";
 import {useBuyerName} from "../Field/buyer-name.jsx";
 import {useDetailAddress} from "../Field/detail-address.jsx";
 import {usePhone} from "../Field/phone.jsx";
@@ -12,10 +12,10 @@ export const useAddressForm = ({}) => {
 
     return {
         checked: (
-            !buyerName.checked ||
-            !phone.checked ||
-            !address.checked ||
-            !detailAddress.checked
+            buyerName.checked &&
+            phone.checked &&
+            address.checked &&
+            detailAddress.checked
         ),
 
         getData: () => ({
