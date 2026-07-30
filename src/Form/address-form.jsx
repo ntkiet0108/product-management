@@ -1,38 +1,27 @@
-import {useAddress} from "../Field/Address/address.jsx";
 import {useBuyerName} from "../Field/buyer-name.jsx";
-import {useDetailAddress} from "../Field/detail-address.jsx";
 import {usePhone} from "../Field/phone.jsx";
+import {useAddress} from "../Field/Address/address.jsx";
+import {mergeField} from "../Field/merge-field.jsx";
 
 export const useAddressForm = ({}) => {
 
-    const buyerName = useBuyerName({});
-    const phone = usePhone({});
-    const address = useAddress({})
-    const detailAddress = useDetailAddress({});
+    const buyerNameField = useBuyerName({});
+    const phoneField = usePhone({});
+    const addressField = useAddress({})
+
+    const field = mergeField({
+        buyerName: buyerNameField,
+        phone: phoneField,
+        address: addressField
+    })
 
     return {
-        checked: (
-            buyerName.checked &&
-            phone.checked &&
-            address.checked &&
-            detailAddress.checked
-        ),
-
-        getData: () => ({
-            buyerName: buyerName.getData(),
-            phone: phone.getData(),
-            address: {
-                detailAddress: detailAddress.getData(),
-                ...address.getData(),
-            }
-        }),
+        ...field,
 
         render: () => <>
-            <div>{buyerName.render()}{" "}{phone.render()}</div>
-
-            {address.render()}
-
-            {detailAddress.render()}
+            <div>{buyerNameField.render()}</div>
+            <div>{phoneField.render()}</div>
+            <div>{addressField.render()}</div>
         </>
     }
 }

@@ -26,7 +26,7 @@ export const SellerForm = ({initData, action}) => {
             </div>
 
             <button
-                disabled={!name || !price || price <= 0}
+                disabled={!name.trim() || !price || price <= 0}
                 onClick={() => {
                     action.onClick({name, price});
                     setName(null);

@@ -7,7 +7,7 @@ export const Admin = () => {
 
     const create = () => {
         setUser([...user, {
-            id: user.length + 1,
+            id: user[user.length-1].id + 1,
             name: userName
         }]);
         setUserName("");

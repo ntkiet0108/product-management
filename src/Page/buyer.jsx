@@ -6,7 +6,7 @@ export const Buyer = ({list, order, setOrder}) => {
 
     const buy = value => {
         setOrder([...order, {
-            id: order.length + 1,
+            id: order[order.length-1].id + 1,
             name: value.name,
             status: "pending",
 
@@ -25,7 +25,7 @@ export const Buyer = ({list, order, setOrder}) => {
                     <li key={value.id}>
                         {value.name + " " + value.price + " VND "}
                         <button
-                            disabled={!form.checked}
+                            disabled={!form.valid}
                             onClick={() => buy(value)}
                         >Mua</button>
                     </li>

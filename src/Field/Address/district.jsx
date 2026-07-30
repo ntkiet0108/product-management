@@ -9,12 +9,21 @@ export const useDistrict = ({provinceId}) => {
 
     const calValue = districtByProvince.some(d => d.id === districtId) ? districtId : null;
 
+    const validateDistrict = districtId => {
+        if(!districtId) return "Chưa chọn quận";
+        return null;
+    }
+
+    const error = validateDistrict(calValue);
+
     return {
-        checked: calValue,
+        valid: !error,
+
+        error,
 
         getData: () => calValue,
 
-        render: () => <div>
+        render: () => <>
             <label>Quận / Huyện </label>
             <select
                 value={districtId}
@@ -29,6 +38,7 @@ export const useDistrict = ({provinceId}) => {
                     >{districts.name}</option>
                 ))}
             </select>
-        </div>
+            {" "}{error && error}
+        </>
     }
 }

@@ -5,12 +5,21 @@ export const useProvince = ({}) => {
 
     const [provinceId, setProvinceId] = useState("");
 
+    const validateProvince = provinceId => {
+        if (!provinceId) return "Chưa chọn tỉnh/thành phố";
+        return null;
+    }
+
+    const error = validateProvince(provinceId);
+
     return {
-        checked: provinceId,
+        valid: !error,
+
+        error,
 
         getData: () => provinceId,
 
-        render: () => <div>
+        render: () => <>
             <label>Tỉnh / Thành phố </label>
             <select
                 value={provinceId}
@@ -26,6 +35,7 @@ export const useProvince = ({}) => {
                     >{provinces.name}</option>
                 ))}
             </select>
-        </div>
+            {" "}{error && error}
+        </>
     }
 }

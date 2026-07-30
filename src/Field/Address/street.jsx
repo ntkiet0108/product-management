@@ -9,12 +9,21 @@ export const useStreet = ({districtId}) => {
 
     const calValue = streetByDistrict.some(s => s.id === streetId) ? streetId : null;
 
+    const validateStreet = streetId => {
+        if(!streetId) return "Chưa chọn đường";
+        return null;
+    }
+
+    const error = validateStreet(calValue);
+
     return {
-        checked: calValue,
+        valid: !error,
+
+        error,
 
         getData: () => calValue,
 
-        render: () => <div>
+        render: () => <>
             <label>Đường </label>
             <select
                 value={streetId}
@@ -29,6 +38,7 @@ export const useStreet = ({districtId}) => {
                     >{streets.name}</option>
                 ))}
             </select>
-        </div>
+            {" "}{error && error}
+        </>
     }
 }

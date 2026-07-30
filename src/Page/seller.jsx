@@ -20,7 +20,7 @@ export const Seller = ({list, setList}) => {
                     label: "Thêm",
                     onClick: ({name, price}) => {
                         setList([...list,{
-                            id: list.length+1,
+                            id: list[list.length-1].id + 1,
                             name: name,
                             price: Number(price)
                         }]);

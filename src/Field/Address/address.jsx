@@ -1,30 +1,31 @@
 import {useProvince} from "./province.jsx";
 import {useDistrict} from "./district.jsx";
 import {useStreet} from "./street.jsx";
+import {useDetailAddress} from "./detail-address.jsx";
+import {mergeField} from "../merge-field.jsx";
 
 export const useAddress = ({}) => {
 
-    const province = useProvince({});
-    const district = useDistrict({provinceId: province.getData()});
-    const street = useStreet({districtId: district.getData()});
+    const provinceField = useProvince({});
+    const districtField = useDistrict({provinceId: provinceField.getData()});
+    const streetField = useStreet({districtId: districtField.getData()});
+    const detailAddressField = useDetailAddress({});
+
+    const field = mergeField({
+        provinceId: provinceField,
+        districtId: districtField,
+        streetId: streetField,
+        detailAddress: detailAddressField,
+    });
 
     return {
-        checked: (
-            province.checked &&
-            district.checked &&
-            street.checked
-        ),
-
-        getData: () => ({
-            provinceId: province.getData(),
-            districtId: district.getData(),
-            streetId: street.getData()
-        }),
+        ...field,
 
         render: () => <>
-            {province.render()}
-            {district.render()}
-            {street.render()}
+            <div>{provinceField.render()}</div>
+            <div>{districtField.render()}</div>
+            <div>{streetField.render()}</div>
+            <div>{detailAddressField.render()}</div>
         </>
     }
 }

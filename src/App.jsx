@@ -1,25 +1,23 @@
-import { useState } from 'react'
-import { Seller } from "./Page/seller.jsx";
-import { Buyer } from "./Page/buyer.jsx";
-import { Admin } from "./Page/admin.jsx";
-import { Shipper } from "./Page/shipper.jsx";
+import {useEffect, useState} from 'react'
+import {Seller} from "./Page/seller.jsx";
+import {Buyer} from "./Page/buyer.jsx";
+import {Admin} from "./Page/admin.jsx";
+import {Shipper} from "./Page/shipper.jsx";
 
 export const App = () => {
 
     const [role, setRole] = useState("");
-    const [list, setList] = useState([
-        {
-            id: 1,
-            name: "Bút bi",
-            price: 5000
-        },
-        {
-            id: 2,
-            name: "Vở",
-            price: 10000
-        }
-    ]);
+    const [list, setList] = useState([]);
     const [order, setOrder] = useState([]);
+
+    useEffect(() => {
+        const loadProducts =  async () => {
+            const res = await fetch("http://localhost:3000/products");
+            const products = await res.json();
+            setList(products);
+        };
+        loadProducts();
+    }, []);
 
     return (
         <>
