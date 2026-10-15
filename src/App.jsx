@@ -3,6 +3,7 @@ import {Seller} from "./Page/seller.jsx";
 import {Buyer} from "./Page/buyer.jsx";
 import {Admin} from "./Page/admin.jsx";
 import {Shipper} from "./Page/shipper.jsx";
+import {getProducts} from "./api/product-api.js";
 
 export const App = () => {
 
@@ -12,9 +13,12 @@ export const App = () => {
 
     useEffect(() => {
         const loadProducts =  async () => {
-            const res = await fetch("http://localhost:3000/products");
-            const products = await res.json();
-            setList(products);
+            try {
+                const products = await getProducts();
+                setList(products);
+            } catch (e) {
+                alert(e.message);
+            }
         };
         loadProducts();
     }, []);

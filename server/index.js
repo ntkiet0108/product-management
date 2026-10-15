@@ -1,8 +1,10 @@
 import express from "express";
+import cors from "cors";
 import {readFile,writeFile} from "fs/promises";
 
 const app = express();
 app.set("json spaces", 4);
+app.use(cors());
 app.use(express.json());
 
 const validateProduct = product => {
@@ -45,6 +47,50 @@ app.post("/products", async (req, res) => {
    res.status(201).json(newProduct);
 });
 
+app.put("/products/:id", async (req, res) => {
+    const id = Number(req.params.id);
+    const product = req.body;
+
+    const error = validateProduct(product);
+    if(error) return res.status(400).json({error});
+
+    const products = await loadProducts();
+
+    const index = products.findIndex(i => i.id === id);
+    if(index === -1) {
+        return res.status(404).json({
+            error: "Không tìm thấy sản phẩm"
+        });
+    }
+
+    const updatedProduct = {
+        id,
+        name: product.name,
+        price: Number(product.price)
+    };
+
+    products[index] = updatedProduct;
+    await saveProducts(products);
+
+    res.json(updatedProduct);
+});
+
+app.delete("/products/:id", async (req, res) => {
+    const id = Number(req.params.id);
+    const products = await loadProducts();
+
+    const index = products.findIndex(i => i.id === id);
+    if(index === -1) {
+        return res.status(404).json({
+            error: "Không tìm thấy sản phẩm"
+        });
+    }
+
+    const deletedProduct = products.splice(index, 1)[0];
+    await saveProducts(products);
+
+    res.json(deletedProduct);
+});
 
 app.listen(3000, () => {
     console.log("Server started");

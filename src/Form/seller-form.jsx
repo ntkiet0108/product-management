@@ -2,8 +2,8 @@ import { useState } from "react";
 
 export const SellerForm = ({initData, action}) => {
 
-    const [name, setName]   = useState(initData?.name);
-    const [price, setPrice] = useState(initData?.price);
+    const [name, setName]   = useState(initData?.name ?? "");
+    const [price, setPrice] = useState(initData?.price ?? "");
 
     return (
         <>
@@ -26,11 +26,11 @@ export const SellerForm = ({initData, action}) => {
             </div>
 
             <button
-                disabled={!name.trim() || !price || price <= 0}
+                disabled={!name?.trim() || !price || price <= 0}
                 onClick={() => {
                     action.onClick({name, price});
-                    setName(null);
-                    setPrice(null);
+                    setName("");
+                    setPrice("");
                 }}
             >{action.label}</button>
         </>
